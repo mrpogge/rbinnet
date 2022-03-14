@@ -144,7 +144,8 @@ structure_selection_ssvs <- function(x, number_iterations = 1e5, number_burnin_i
 
       sigma[s, s] <- rnorm(n = 1, mean = post_mean, sd = sqrt(post_var))
     }
-
+    
+    #ADD: Check z[s] and z[t] select theta accordingly
     for(s in 1:(p - 1)) {
       for(t in (s + 1):p) {
         # if edge is not screened ---------------------------------------------
@@ -182,6 +183,7 @@ structure_selection_ssvs <- function(x, number_iterations = 1e5, number_burnin_i
     }
 
     # sample prior inclusion probability --------------------------------------
+    #ADD an if statement if SBM == TRUE add the full conditional for theta 
     if(hierarchical == TRUE) {
       theta <- rbeta(n = 1,
                      shape1 = alpha + sum(gamma) / 2,
